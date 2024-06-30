@@ -13,6 +13,6 @@
     "typescript": "^5.5.2"
   },
   "scripts": {
-    "start-dev": "ts-node ./src/app.ts"
+    "start-dev": "nodemon ./src/app.ts"
   }
 }

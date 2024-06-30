@@ -32,7 +32,7 @@ app.get('/api/hello', async (req: Request, res: Response) => {
 
 
 
-app.all('*', (req: Request, res: Response) => res.send(400).json({ error: true, message: 'Invalid endpoint or method used, please check and try again later' }));
+app.all('*', (req: Request, res: Response) => res.status(400).json({ error: true, message: 'Invalid endpoint or method used, please check and try again later' }));
 
 const PORT = process.env.PORT as string || '9000';
 
