@@ -13,11 +13,11 @@ app.get('/api/hello', async (req: Request, res: Response) => {
   try {
     const { visitorName } = <{ visitorName: string }>req.query;
 
-    if (!visitorName) res.status(400).json({ error: true, message: 'Visitor name is required is request query' });
+    if (!visitorName) return res.status(400).json({ error: true, message: 'Visitor name is required is request query' });
 
     const ip = req.ip as string;
 
-    if (!ip || typeof ip === 'undefined') res.status(500).json({ error: true, message: 'Could not get user IP Data, please try again later' });
+    if (!ip || typeof ip === 'undefined') return res.status(500).json({ error: true, message: 'Could not get user IP Data, please try again later' });
 
     const { city, lat, lon } = await getIPDetails(ip);
     const { temp } = await getTemperature(lon, lat);
