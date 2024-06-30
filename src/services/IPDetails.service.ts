@@ -3,7 +3,7 @@ import IPData from "ipdata";
 export async function getIPDetails(ip: string) {
   const IPAPI = process.env.IPAPI as string;
 
-  if (IPAPI) throw new Error("IPData API key not found");
+  if (!IPAPI) throw new Error("IPData API key not found");
 
   const ipdata = new IPData(IPAPI);
 
@@ -15,4 +15,3 @@ export async function getIPDetails(ip: string) {
 
   return { city: data.region, lat: data.latitude, lon: data.longitude };
 }
-
