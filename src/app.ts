@@ -22,7 +22,7 @@ app.get("/api/hello", async (req: Request, res: Response) => {
         message: "Visitor name is required is request query",
       });
 
-    const ip = (req.headers["x-forwarded-for"] ||
+    let ip = (req.headers["x-forwarded-for"] ||
       req.socket.remoteAddress) as string;
 
     if (!ip || typeof ip === "undefined")
@@ -30,6 +30,10 @@ app.get("/api/hello", async (req: Request, res: Response) => {
         error: true,
         message: "Could not get user IP Data, please try again later",
       });
+
+      if (ip.startsWith('::ffff:')) {
+        ip = ip.split('::ffff:')[1];
+      }
 
     const { city, lat, lon } = await getIPDetails(ip);
     const { temp } = await getTemperature(lon, lat);
