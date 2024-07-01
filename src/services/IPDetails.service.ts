@@ -1,4 +1,5 @@
 import IPData from "ipdata";
+import "dotenv/config";
 
 export async function getIPDetails(ip: string) {
   const IPAPI = process.env.IPAPI as string;

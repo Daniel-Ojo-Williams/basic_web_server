@@ -1,4 +1,5 @@
 import axios from "axios";
+import "dotenv/config";
 
 export async function getTemperature(lon: number, lat: number) {
   const appid = process.env.WEATHERAPI as string;
