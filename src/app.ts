@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { getIPDetails, getTemperature } from "./services";
 import 'dotenv/config';
+import { Console } from "console";
 const app = express();
 
 app.set("trust proxy", true);
@@ -35,9 +36,12 @@ app.get("/api/hello", async (req: Request, res: Response) => {
         message: "Could not get user IP Data, please try again later",
       });
 
-      if (ip.startsWith('::ffff:')) {
-        ip = ip.split('::ffff:')[1];
-      }
+    if (ip.startsWith('::ffff:')) {
+      ip = ip.split('::ffff:')[1];
+    }
+
+    console.log(ip, typeof ip)
+    
 
     const { city, lat, lon } = await getIPDetails(ip);
     const { temp } = await getTemperature(lon, lat);
@@ -48,6 +52,7 @@ app.get("/api/hello", async (req: Request, res: Response) => {
 
     res.status(200).json({ client_ip: ip, location: city, greeting });
   } catch (error) {
+    console.log((error as Error).message);
     res.status(500).json({
       error: true,
       message: "Something went wrong, please try again later",
