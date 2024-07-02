@@ -39,9 +39,9 @@ app.get("/api/hello", async (req: Request, res: Response) => {
     if (ip.startsWith('::ffff:')) {
       ip = ip.split('::ffff:')[1];
     }
-
-    console.log(ip, typeof ip)
     
+    // --| This handles when ip is returned as an array of string(s)
+    ip = ip.split(",")[0].trim();
 
     const { city, lat, lon } = await getIPDetails(ip);
     const { temp } = await getTemperature(lon, lat);
@@ -52,11 +52,9 @@ app.get("/api/hello", async (req: Request, res: Response) => {
 
     res.status(200).json({ client_ip: ip, location: city, greeting });
   } catch (error) {
-    console.log((error as Error).message);
     res.status(500).json({
       error: true,
-      message: "Something went wrong, please try again later",
-      serverMessage: (error as Error).message
+      message: "Something went wrong, please try again later"
     });
   }
 });
