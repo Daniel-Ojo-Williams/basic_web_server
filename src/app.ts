@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors());
 
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({ message: "Hello, welcome to Stage 1 server!" })
+})
+
 app.get("/api/hello", async (req: Request, res: Response) => {
   try {
     const { visitor_name } = <{ visitor_name: string }>req.query;
