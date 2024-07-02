@@ -51,6 +51,7 @@ app.get("/api/hello", async (req: Request, res: Response) => {
     res.status(500).json({
       error: true,
       message: "Something went wrong, please try again later",
+      serverMessage: (error as Error).message
     });
   }
 });
