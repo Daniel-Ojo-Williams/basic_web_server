@@ -12,7 +12,7 @@ export async function getIPDetails(ip: string) {
 
   if (!data) throw new Error("Could not get IP data");
 
-  if (!data.region) throw new Error("Could not get IP region");
+  if (!data.city) throw new Error("Could not get IP region");
 
   return { city: data.region, lat: data.latitude, lon: data.longitude };
 }
